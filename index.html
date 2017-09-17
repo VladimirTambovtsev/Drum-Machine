@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Drum machine</title>
+    <link href="style.css" rel="stylesheet"> 
+  </head>
+
+  <body>
+    <h1>Drum machine</h1>
+   	<div class="keys">
+   		<div class="main">
+   			<div class="key" data-key="81">
+   				<kbd>Q</kbd>
+   			<span class="sound">main</span>
+   		</div>
+   		</div>
+
+   		<div class="key" data-key="65">
+   			<kbd>A</kbd>
+   			<span class="sound">clap</span>
+   		</div>
+   		<div class="key" data-key="83">
+   			<kbd>S</kbd>
+   			<span class="sound">hihat</span>
+   		</div>
+   		<div class="key" data-key="68">
+   			<kbd>D</kbd>
+   			<span class="sound">kick</span>
+   		</div>
+   		<div class="key" data-key="70">
+   			<kbd>F</kbd>
+   			<span class="sound">hat</span>
+   		</div>
+   		<div class="key" data-key="71">
+   			<kbd>G</kbd>
+   			<span class="sound">boom</span>
+   		</div>
+   		<div class="key" data-key="74">
+   			<kbd>J</kbd>
+   			<span class="sound">snare</span>
+   		</div>
+   		<div class="key" data-key="75">
+   			<kbd>K</kbd>
+   			<span class="sound">tom</span>
+   		</div>
+   		<div class="key" data-key="76">
+   			<kbd>L</kbd>
+   			<span class="sound">tink</span>
+   		</div>
+   		<div class="key" data-key="90">
+   			<kbd>Z</kbd>
+   			<span class="sound">bass</span>
+   		</div>
+   		<div class="key" data-key="88">
+   			<kbd>X</kbd>
+   			<span class="sound">puff</span>
+   		</div>
+   		<div class="key" data-key="67">
+   			<kbd>C</kbd>
+   			<span class="sound">drum</span>
+   		</div>
+   		<div class="key" data-key="86">
+   			<kbd>V</kbd>
+   			<span class="sound">crash</span>
+   		</div>
+   		<div class="key" data-key="66">
+   			<kbd>B</kbd>
+   			<span class="sound">bong</span>
+   		</div>
+   	</div>
+
+
+<audio data-key="81" src="sounds/main1.mp3"></audio>
+<audio data-key="65" src="sounds/clap.mp3"></audio>
+<audio data-key="83" src="sounds/hihat.mp3"></audio>
+<audio data-key="68" src="sounds/kick.mp3"></audio>
+<audio data-key="70" src="sounds/openhat.mp3"></audio>
+<audio data-key="71" src="sounds/boom.mp3"></audio>
+<audio data-key="74" src="sounds/snare.mp3"></audio>
+<audio data-key="75" src="sounds/tom.mp3"></audio>
+<audio data-key="76" src="sounds/tink.mp3"></audio>
+<audio data-key="90" src="sounds/bass.mp3"></audio>
+<audio data-key="88" src="sounds/puff.mp3"></audio>
+<audio data-key="67" src="sounds/drum.wav"></audio>
+<audio data-key="86" src="sounds/crash.mp3"></audio>
+<audio data-key="66" src="sounds/bong.mp3"></audio>
+
+<script type="text/javascript">
+	window.addEventListener('keydown', function(e){ 
+		const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+		const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+	 	console.log(e.keyCode);
+		if (!audio) return; // stop the function
+		audio.currentTime = 0;
+		audio.play(); 
+		key.classList.add('playing');
+	});
+
+function removeTransition(e){
+	if (e.propertyName !== 'transform') return; // skip it if it not transform
+	this.classList.remove('playing');
+}
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+</script>
+  </body>
+</html>
